@@ -66,7 +66,8 @@ class WebsocketHandler(threading.Thread):
                 data = json.loads(data)
                 data['user'] = self.username
                 logger.info(data)
-                serial_notify(data)
+                if data.get('action', 'sound'):
+                    serial_notify(data)
             except Exception as e:
                 logger.error('receive data not json')
 

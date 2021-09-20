@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 __author__ = 'hbh112233abc@163.com'
+import os
 import time
 
 from init import *
@@ -24,6 +25,7 @@ def main():
     websocket_server.setDaemon(True)
     websocket_server.start()
 
+    os.system('start demo.html')
     while True:
         time.sleep(0.1)
 
