@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>websocket demo</title>
+
+</head>
+
+<body>
+  <form id="form" action="">
+    <select name="port" id="port">
+
+    </select>
+    <input type="text" id="input" value="Test Voice = 00 sig." placeholder="please input message!">
+    <button type="submit">Send</button>
+  </form>
+  <ul id="result">
+
+  </ul>
+</body>
+<script>
+  const form = document.getElementById('form');
+  const dataInput = document.getElementById('input');
+  const portSelect = document.getElementById('port');
+  const reuslt = document.getElementById('reuslt');
+
+  const socket = new WebSocket('ws://127.0.0.1:5678');
+  socket.onopen = (event) => {
+    socket.send("hello this is client!");
+    socket.onmessage = (event) => {
+      console.log('receive message:', event);
+      log(event.data)
+      const data = event.data;
+      try {
+        const dataJson = JSON.parse(data);
+        if (dataJson['action'] == 'serial_list') {
+          const ports = dataJson['data'];
+          for (let i = 0; i < ports.length; i++) {
+            const port = ports[i];
+            const option = document.createElement('option')
+            option.value = port;
+            option.innerText = port;
+            portSelect.appendChild(option);
+          }
+        }
+      } catch (e) {
+        console.log(e)
+      }
+
+    }
+    socket.onclose = (event) => {
+      console.log('client close', event);
+    }
+  }
+  form.addEventListener('submit', (event) => {
+    event.preventDefault()
+    console.log(dataInput.value)
+    const data = dataInput.value;
+    const port = portSelect.value;
+    const message = {
+      'port': port,
+      'data': data,
+    }
+    socket.send(JSON.stringify(message))
+    dataInput.value = ''
+    return false;
+  });
+
+  function log(msg) {
+    const li = document.createElement('li');
+    li.innerHTML = msg;
+    result.appendChild(li);
+  }
+</script>
+
+</html>
