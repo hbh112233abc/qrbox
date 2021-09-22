@@ -426,10 +426,9 @@
    'PYMODULE'),
   ('dis', 'D:\\Python\\Python38\\lib\\dis.py', 'PYMODULE'),
   ('opcode', 'D:\\Python\\Python38\\lib\\opcode.py', 'PYMODULE'),
-  ('os', 'D:\\Python\\Python38\\lib\\os.py', 'PYMODULE'),
+  ('tracemalloc', 'D:\\Python\\Python38\\lib\\tracemalloc.py', 'PYMODULE'),
   ('_py_abc', 'D:\\Python\\Python38\\lib\\_py_abc.py', 'PYMODULE'),
   ('stringprep', 'D:\\Python\\Python38\\lib\\stringprep.py', 'PYMODULE'),
-  ('tracemalloc', 'D:\\Python\\Python38\\lib\\tracemalloc.py', 'PYMODULE'),
   ('serial_server', 'D:\\py\\qrbox\\serial_server.py', 'PYMODULE'),
   ('serial.tools.list_ports',
    'c:\\users\\huangbinghe\\.virtualenvs\\qrbox-ypqeuty-\\lib\\site-packages\\serial\\tools\\list_ports.py',
@@ -554,4 +553,5 @@
    'PYMODULE'),
   ('loguru._defaults',
    'c:\\users\\huangbinghe\\.virtualenvs\\qrbox-ypqeuty-\\lib\\site-packages\\loguru\\_defaults.py',
-   'PYMODULE')])
+   'PYMODULE'),
+  ('os', 'D:\\Python\\Python38\\lib\\os.py', 'PYMODULE')])

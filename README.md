@@ -30,3 +30,8 @@
   "data":"Test Voice = 00 sig."
 }
 ```
+
+### 打包脚本
+```
+pyinstaller -F --clean .\qrbox.py --add-data="demo.html;."
+```

@@ -25,7 +25,7 @@ def main():
     websocket_server.setDaemon(True)
     websocket_server.start()
 
-    os.system('start demo.html')
+    # os.system('start demo.html')
     while True:
         time.sleep(0.1)
 

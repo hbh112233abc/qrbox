@@ -87,7 +87,7 @@ class WebsocketHandler(threading.Thread):
             f"Sec-WebSocket-Accept: {token}\r\n\r\n",
         ]
         message = ''.join(msg_list)
-        return websocket_send(self.connection, message)
+        return self.connection.send(message.encode('utf-8'))
 
     def parse_data(self, info):
         """解析接收的数据
