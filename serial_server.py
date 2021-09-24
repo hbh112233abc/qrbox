@@ -25,18 +25,29 @@ class SerialServer(threading.Thread):
             while True:
                 try:
                     bytes = server.read_until(b'\r')
+                    if not bytes:
+                        continue
                     logger.info(f'receive qrcode bytes:{bytes}')
-                    char_info = chardet.detect(bytes)
-                    print(char_info)
-                    if int(char_info.get('confidence', 0)) > 0.8:
-                        char_code = char_info.get('encoding')
-                        data = bytes.decode(char_code)
-                    else:
-                        try:
-                            data = bytes.decode('utf-8')
-                        except Exception as e:
-                            print(e)
-                            data = bytes.decode('gbk')
+                    char_code = 'utf-8'
+                    try:
+                        data = bytes.decode('utf-8')
+                    except Exception as e:
+                        print(e)
+                        data = bytes.decode('gbk')
+                        char_code = 'gbk'
+                    except Exception as e:
+                        print(e)
+                        char_info = chardet.detect(bytes)
+                        print(char_info)
+                        if int(char_info.get('confidence', 0)) > 0.8:
+                            char_code = char_info.get('encoding')
+                            data = bytes.decode(char_code)
+                        else:
+                            raise ValueError('could not decode bytes')
+
+                    data = data.strip("\r").strip("\n").strip("\r\n")
+                    if not data:
+                        continue
 
                     logger.info(f'serial [{self.port}] received:{data}')
                     msg = {
