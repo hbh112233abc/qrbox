@@ -35,3 +35,13 @@
 ```
 pyinstaller -F --clean .\qrbox.py --add-data="demo.html;."
 ```
+
+### 启动服务
+```
+qrbox.exe [串口匹配字符串]
+```
+- 增加传入串口匹配字符串,默认['USB','PCI']
+```
+qrbox.exe aaa bbb ccc
+```
+> 这时会匹配连接的串口名称是否包含aaa或bbb或ccc,然后监听对应的串口
