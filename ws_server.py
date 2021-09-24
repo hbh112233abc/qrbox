@@ -22,13 +22,15 @@ class WebsocketServer(threading.Thread):
 
     def __init__(self, port=5678):
         super().__init__()
+        self.addr = '0.0.0.0'
         self.port = port
 
     def run(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        sock.bind(('0.0.0.0', self.port))
+        sock.bind((self.addr, self.port))
         sock.listen(5)
+        logger.info(f'start ws server ws://{self.addr}:{self.port}')
         while True:
             connection, address = sock.accept()
             logger.info(f'accept new client:{address}')

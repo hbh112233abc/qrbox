@@ -1,7 +1,9 @@
 from pdb import Pdb
+import pdb
 import socket
 import json
 import struct
+from typing import Iterator, Any
 from init import *
 
 
@@ -75,3 +77,27 @@ def websocket_notify(message: str):
     for addr, connection in clients.items():
         logger.info(f'=> {addr}')
         websocket_send(connection, message)
+
+
+def check_port_name(port_name: str, port_char: Any = None) -> bool:
+    """检查端口是否需要的
+
+    Args:
+        port_name (str): 端口名称
+        port_char (mixed, optional): 匹配内容. Defaults to None.
+
+    Returns:
+        bool: 是否符合要求
+    """
+    if not port_char:
+        return True
+
+    if isinstance(port_char, str):
+        return port_char in port_name
+    if isinstance(port_char, list):
+        result = False
+        for char in port_char:
+            if char in port_name:
+                return True
+        return result
+    return True

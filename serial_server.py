@@ -18,7 +18,7 @@ class SerialServer(threading.Thread):
     def run(self):
         try:
             server = serial.Serial(self.port, self.ptl, timeout=self.timeout)
-            logger.info(f'serial port:{self.port}')
+            logger.info(f'start serial server port:{self.port}')
             serials[self.port] = server
             while True:
                 if server.in_waiting:
