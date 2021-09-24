@@ -2,5 +2,6 @@ log/
 build/
 dist/
 .vscode/
+__pycache__
 *.spec
 Pipfile.lock
