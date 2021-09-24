@@ -61,17 +61,19 @@ class WebsocketHandler(threading.Thread):
                 logger.error("unexpected error: ", e)
                 clients.pop(self.username)
                 break
-            data = self.parse_data(data)
-            if not data:
-                continue
             try:
+                data = self.parse_data(data)
+                if not data:
+                    continue
                 data = json.loads(data)
                 data['user'] = self.username
                 logger.info(data)
                 if data.get('action', 'sound'):
                     serial_notify(data)
+            except json.decoder.JSONDecodeError as e:
+                logger.error('receive msg not json string')
             except Exception as e:
-                logger.error('receive data not json')
+                logger.exception(e)
 
     def hand_shake(self):
         """客户端连接握手响应
