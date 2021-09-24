@@ -16,7 +16,7 @@
 ### 扫码后ws通知消息
 ```
 {
-  "action":"serial_list",
+  "action":"scan_qrcode",
   "port":"COM6",
   "data":"扫码内容"
 }
