@@ -39,19 +39,22 @@ def websocket_send(client: socket, msg: str):
     Returns:
         [type]: [description]
     """
-    logger.info(f'send ws message:{msg}')
-    head = b'\x81'
-    if len(msg) < 126:
-        head += struct.pack('B', len(msg))
-    elif len(msg) <= 0xFFFF:
-        head += struct.pack('!BH', 126, len(msg))
-    else:
-        head += struct.pack('!BQ', 127, len(msg))
+    try:
+        logger.info(f'send ws message:{msg}')
+        head = b'\x81'
+        if len(msg) < 126:
+            head += struct.pack('B', len(msg))
+        elif len(msg) <= 0xFFFF:
+            head += struct.pack('!BH', 126, len(msg))
+        else:
+            head += struct.pack('!BQ', 127, len(msg))
 
-    msg_bytes = head + msg.encode('utf-8')
-    result = client.send(msg_bytes)
-    logger.info(f'send result:{result}')
-    return result
+        msg_bytes = head + msg.encode('utf-8')
+        result = client.send(msg_bytes)
+        logger.info(f'send result:{result}')
+        return result
+    except Exception as e:
+        logger.exception(e)
 
 
 def send_serial_list(client: socket):
