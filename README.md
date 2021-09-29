@@ -33,7 +33,7 @@
 
 ### 打包脚本
 ```
-pyinstaller -F --clean .\qrbox.py --add-data="demo.html;."
+pyinstaller -F --clean --icon logo.ico .\qrbox.py --add-data="logo.ico;."
 ```
 
 ### 启动服务
